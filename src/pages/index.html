@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panyero Wallet - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+    body {
+      font-family:'Roboto','Open Sans',sans-serif;
+      background-color:#F5F6F7;
+      color:#000;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+      max-width:480px;
+      margin:0 auto;
+    }
+    header {
+      background-color:#6CBF41;
+      color:#FFF;
+      padding:1rem;
+      font-size:1.2rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:99;
+    }
+    .left-header {
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+    }
+    .panyero-logo {
+      width:120px;
+      height:45px;
+      background:url('assets/images/logo/logo.png') center/contain no-repeat;
+    }
+    .right-header {
+      display:flex;
+      align-items:center;
+      gap:1rem;
+    }
+    .material-icons {
+      font-size:1.6rem;
+      cursor:pointer;
+    }
+    .material-icons:hover {
+      opacity:0.8;
+    }
+    .top-nav {
+      display:flex;
+      gap:2rem;
+      background-color:#FFF;
+      overflow-x:auto;
+      padding:0.8rem 1rem;
+      border-bottom:1px solid #DDD;
+    }
+    .top-nav a {
+      color:#444;
+      text-decoration:none;
+      font-weight:600;
+      white-space:nowrap;
+      font-size:0.9rem;
+    }
+    .top-nav a.active {
+      color:#6CBF41;
+      border-bottom:3px solid #6CBF41;
+      padding-bottom:0.3rem;
+    }
+    main {
+      flex:1;
+      padding:1rem;
+    }
+    .wallet-balance-block {
+      background-color:#FFF;
+      border-radius:10px;
+      padding:1rem;
+      margin-bottom:1rem;
+      box-shadow:0 2px 4px rgba(0,0,0,0.05);
+    }
+    .balance-amount {
+      font-size:2rem;
+      font-weight:700;
+      margin-bottom:0.2rem;
+      color:#000;
+    }
+    .balance-label {
+      font-size:0.9rem;
+      color:#666;
+    }
+    .quick-actions {
+      display:flex;
+      gap:1rem;
+      margin-top:1rem;
+    }
+    .quick-actions button {
+      flex:1;
+      background-color:#6CBF41;
+      color:#FFF;
+      border:none;
+      padding:0.8rem;
+      border-radius:8px;
+      font-size:1rem;
+      cursor:pointer;
+      font-weight:500;
+    }
+    .promo-block {
+      background-color:#FEFEFE;
+      border-radius:10px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.1);
+      padding:1rem;
+      margin-bottom:1rem;
+    }
+    .promo-title {
+      font-weight:600;
+      margin-bottom:0.5rem;
+      font-size:0.95rem;
+    }
+    .promo-description {
+      font-size:0.85rem;
+      color:#555;
+    }
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(70px,1fr));
+      gap:1rem;
+      margin-bottom:1rem;
+    }
+    .service-item {
+      background-color:#FFF;
+      border-radius:10px;
+      text-align:center;
+      padding:0.8rem;
+      box-shadow:0 1px 3px rgba(0,0,0,0.1);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      font-size:0.8rem;
+      color:#333;
+      cursor:pointer;
+    }
+    .service-icon {
+      font-size:1.4rem;
+      margin-bottom:0.5rem;
+      background-color:#EEE;
+      border-radius:8px;
+      width:40px;
+      height:40px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#777;
+    }
+    .recent-section {
+      margin-top:1rem;
+    }
+    .recent-title {
+      font-size:1rem;
+      font-weight:600;
+      margin-bottom:0.5rem;
+      display:flex;
+      justify-content:space-between;
+    }
+    .tx-item {
+      display:flex;
+      justify-content:space-between;
+      background-color:#FAFAFA;
+      border-radius:6px;
+      padding:0.6rem;
+      margin-bottom:0.5rem;
+      font-size:0.85rem;
+    }
+    .bottom-nav {
+      background-color:#FFF;
+      border-top:1px solid #DDD;
+      width:100%;
+      text-align:center;
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      padding:0.5rem 0;
+      position:fixed;
+      bottom:0;
+      left:0;
+      max-width:480px;
+    }
+    .nav-item {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#444;
+      text-decoration:none;
+      font-size:0.8rem;
+      cursor:pointer;
+    }
+    .nav-icon {
+      font-size:1.4rem;
+      margin-bottom:0.2rem;
+      color:#777;
+    }
+    .nav-item.active .nav-icon {
+      color:#6CBF41;
+    }
+    .nav-item.active {
+      color:#6CBF41;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const firebaseConfig={
+      apiKey:"AIzaSyDTsjYZNWFfZOESP-2QQfbD7jc5fG9FJdc",
+      authDomain:"explore-malaysia-6d28d.firebaseapp.com",
+      databaseURL:"https://explore-malaysia-6d28d-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId:"explore-malaysia-6d28d",
+      storageBucket:"explore-malaysia-6d28d.appspot.com",
+      messagingSenderId:"869053244601",
+      appId:"1:869053244601:web:29ad09ff454b43230be768",
+      measurementId:"G-5XJK1H7KWX"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const SUPABASE_URL="https://fftyirkucafyxyuvzlvq.supabase.co";
+    const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmdHlpcmt1Y2FmeXh5dXZ6bHZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4MjQwOTUsImV4cCI6MjA1MDQwMDA5NX0.V5BG2shY4zMIDTpgyRBt9xF-Sgidkj_P5_gAFDPJzIc";
+    const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+    let db;
+    const request=indexedDB.open("PanyeroDB",1);
+    request.onupgradeneeded=(e)=>{
+      db=e.target.result;
+      if(!db.objectStoreNames.contains('localData')){
+        db.createObjectStore('localData',{ keyPath:'id',autoIncrement:true });
+      }
+    };
+    request.onsuccess=(e)=>{ db=e.target.result; };
+    request.onerror=()=>{ console.log("IndexedDB Error"); };
+
+    async function loadBalance(){
+      try{
+        const user=firebase.auth().currentUser;
+        if(!user){
+          document.getElementById('balanceAmount').textContent="₱0";
+          return;
+        }
+        const userId=user.uid;
+        const { data,error }=await supabase
+          .from('users')
+          .select('walletbalance')
+          .eq('uid',userId)
+          .single();
+        if(error)throw error;
+        document.getElementById('balanceAmount').textContent=`₱${data.walletbalance}`;
+      }catch(err){
+        console.log("Supabase fetch failed, fallback to IndexedDB:",err);
+        const transaction=db.transaction(['localData'],'readwrite');
+        const store=transaction.objectStore('localData');
+        const req=store.get(1);
+        req.onsuccess=(ev)=>{
+          const record=ev.target.result;
+          if(record){
+            document.getElementById('balanceAmount').textContent=`₱${record.offlineBalance||0}`;
+          }
+        };
+      }
+    }
+
+    firebase.auth().onAuthStateChanged(()=>{ loadBalance(); });
+    window.addEventListener('DOMContentLoaded',loadBalance);
+  </script>
+
+  <header>
+    <div class="left-header">
+      <div class="panyero-logo"></div>
+    </div>
+    <div class="right-header">
+      <span class="material-icons" onclick="window.location.href='notifications.html'">notifications</span>
+      <span class="material-icons" onclick="window.location.href='niyero.html'">support_agent</span>
+    </div>
+  </header>
+
+  <div class="top-nav">
+    <a href="index.html" class="active">Wallet</a>
+    <a href="savings.html">Savings</a>
+    <a href="credit.html">Credit</a>
+    <a href="loans.html">Loans</a>
+    <a href="cards.html">Cards</a>
+  </div>
+
+  <main>
+    <div class="wallet-balance-block">
+      <div class="balance-amount" id="balanceAmount">₱0</div>
+      <div class="balance-label">Available balance</div>
+      <div class="quick-actions">
+        <button onclick="window.location.href='cashin.html'">Cash In</button>
+        <button onclick="window.location.href='transfer.html'">Transfer</button>
+      </div>
+    </div>
+
+    <div class="promo-block">
+      <div class="promo-title">50% OFF</div>
+      <div class="promo-description">Summer special deal. Get discount for every transaction</div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-item" onclick="window.location.href='maritime.html'">
+        <div class="service-icon">⛵</div>
+        Maritime
+      </div>
+      <div class="service-item" onclick="window.location.href='finance.html'">
+        <div class="service-icon">💼</div>
+        Finance
+      </div>
+      <div class="service-item" onclick="window.location.href='academy.html'">
+        <div class="service-icon">🎓</div>
+        Academy
+      </div>
+      <div class="service-item" onclick="window.location.href='media.html'">
+        <div class="service-icon">🎞</div>
+        Media
+      </div>
+      <div class="service-item" onclick="window.location.href='vehicle.html'">
+        <div class="service-icon">🚘</div>
+        Vehicle
+      </div>
+      <div class="service-item" onclick="window.location.href='games.html'">
+        <div class="service-icon">🎮</div>
+        Games
+      </div>
+      <div class="service-item" onclick="window.location.href='lottery.html'">
+        <div class="service-icon">🎟</div>
+        Lottery
+      </div>
+      <div class="service-item" onclick="window.location.href='more.html'">
+        <div class="service-icon">➕</div>
+        More
+      </div>
+    </div>
+
+    <div class="recent-section">
+      <div class="recent-title">
+        <span>Recent Transaction</span>
+        <span style="color:#6CBF41; font-size:0.8rem; cursor:pointer;" onclick="window.location.href='transactions.html'">See All</span>
+      </div>
+      <div class="tx-item">
+        <div>No transactions yet</div>
+        <div style="font-weight:700;">---</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="window.location.href='index.html'">
+      <span class="nav-icon material-icons">anchor</span>
+      Panyero
+    </div>
+    <div class="nav-item" onclick="window.location.href='wallet.html'">
+      <span class="nav-icon material-icons">account_balance_wallet</span>
+      Wallet
+    </div>
+    <div class="nav-item" onclick="window.location.href='scanqr.html'">
+      <span class="nav-icon material-icons">qr_code_scanner</span>
+      Scan
+    </div>
+    <div class="nav-item" onclick="window.location.href='services.html'">
+      <span class="nav-icon material-icons">dns</span>
+      Services
+    </div>
+    <div class="nav-item" onclick="window.location.href='profile.html'">
+      <span class="nav-icon material-icons">person</span>
+      Profile
+    </div>
+  </div>
+</body>
+</html>
