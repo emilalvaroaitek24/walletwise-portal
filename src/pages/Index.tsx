@@ -5,11 +5,20 @@ import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
-    <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-gray-50">
+    <div className="flex flex-col min-h-screen max-w-lg mx-auto bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#6CBF41] text-white p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-[120px] h-[45px] bg-[url('/assets/images/logo/logo.png')] bg-center bg-contain bg-no-repeat" />
+          <img
+            src="/lovable-uploads/fc25ec36-a7db-44d0-9fae-0d108f6923e8.png"
+            alt="Panyero Logo"
+            className="w-[150px] h-[50px] block dark:hidden"
+          />
+          <img
+            src="/lovable-uploads/0783a68b-9ca7-45a1-b281-73ad9db1b52b.png"
+            alt="Panyero Logo"
+            className="w-[150px] h-[50px] hidden dark:block"
+          />
         </div>
         <div className="flex items-center gap-4">
           <Bell className="w-6 h-6 cursor-pointer hover:opacity-80" onClick={() => window.location.href='notifications.html'} />
@@ -18,12 +27,12 @@ const Index = () => {
       </header>
 
       {/* Top Navigation */}
-      <div className="flex gap-8 bg-white p-3 overflow-x-auto border-b">
+      <div className="flex gap-8 bg-white dark:bg-gray-800 p-3 overflow-x-auto border-b dark:border-gray-700">
         <Link to="/" className="text-[#6CBF41] font-semibold whitespace-nowrap border-b-2 border-[#6CBF41] pb-1">Wallet</Link>
-        <Link to="/savings" className="text-gray-600 font-semibold whitespace-nowrap">Savings</Link>
-        <Link to="/credit" className="text-gray-600 font-semibold whitespace-nowrap">Credit</Link>
-        <Link to="/loans" className="text-gray-600 font-semibold whitespace-nowrap">Loans</Link>
-        <Link to="/cards" className="text-gray-600 font-semibold whitespace-nowrap">Cards</Link>
+        <Link to="/savings" className="text-gray-600 dark:text-gray-300 font-semibold whitespace-nowrap">Savings</Link>
+        <Link to="/credit" className="text-gray-600 dark:text-gray-300 font-semibold whitespace-nowrap">Credit</Link>
+        <Link to="/loans" className="text-gray-600 dark:text-gray-300 font-semibold whitespace-nowrap">Loans</Link>
+        <Link to="/cards" className="text-gray-600 dark:text-gray-300 font-semibold whitespace-nowrap">Cards</Link>
       </div>
 
       <main className="flex-1 p-4">
@@ -99,24 +108,24 @@ const Index = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white border-t flex justify-around items-center p-2">
+      <div className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white dark:bg-gray-800 border-t dark:border-gray-700 flex justify-around items-center p-2">
         <Link to="/" className="flex flex-col items-center text-[#6CBF41]">
           <Anchor className="w-6 h-6" />
           <span className="text-xs mt-1">Panyero</span>
         </Link>
-        <Link to="/wallet" className="flex flex-col items-center text-gray-600">
+        <Link to="/wallet" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
           <ArrowRight className="w-6 h-6" />
           <span className="text-xs mt-1">Send Money</span>
         </Link>
-        <Link to="/scan" className="flex flex-col items-center text-gray-600">
+        <Link to="/scan" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
           <QrCode className="w-8 h-8" />
           <span className="text-xs mt-1">Scan</span>
         </Link>
-        <Link to="/services" className="flex flex-col items-center text-gray-600">
+        <Link to="/services" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
           <Grid className="w-6 h-6" />
           <span className="text-xs mt-1">Services</span>
         </Link>
-        <Link to="/profile" className="flex flex-col items-center text-gray-600">
+        <Link to="/profile" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
           <User className="w-6 h-6" />
           <span className="text-xs mt-1">Profile</span>
         </Link>
