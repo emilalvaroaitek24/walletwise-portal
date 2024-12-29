@@ -1,4 +1,4 @@
-import { Anchor, ArrowRight, QrCode, Grid, User, Bell, Headphones } from "lucide-react";
+import { Anchor, Wallet, QrCode, Grid, User, Bell, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -114,7 +114,7 @@ const Index = () => {
           <span className="text-xs mt-1">Panyero</span>
         </Link>
         <Link to="/wallet" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
-          <ArrowRight className="w-6 h-6" />
+          <Wallet className="w-6 h-6" />
           <span className="text-xs mt-1">Send Money</span>
         </Link>
         <Link to="/scan" className="flex flex-col items-center text-gray-600 dark:text-gray-300">
