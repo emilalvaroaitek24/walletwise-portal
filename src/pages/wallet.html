@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panyero Wallet - Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      background: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .wallet-balance-block {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .balance-amount {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .balance-label {
+      font-size: 1rem;
+      color: #666;
+    }
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem;
+    }
+    .service-item {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .recent-section {
+      margin: 2rem;
+    }
+    .recent-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .tx-item {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      background: #fff;
+      padding: 1rem 0;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .nav-item {
+      text-align: center;
+      cursor: pointer;
+    }
+    .nav-icon {
+      display: block;
+      font-size: 24px;
+    }
+    .active {
+      font-weight: bold;
+      color: #6CBF41;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Firebase and Supabase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const supabase = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+  </script>
+
+  <header>
+    <div class="left-header">
+      <div class="panyero-logo"></div>
+    </div>
+    <div class="right-header">
+      <span class="material-icons" onclick="window.location.href='notifications.html'">notifications</span>
+      <span class="material-icons" onclick="window.location.href='niyero.html'">support_agent</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="wallet-balance-block">
+      <div class="balance-amount" id="balanceAmount">₱0</div>
+      <div class="balance-label">Total Balance</div>
+      <div class="quick-actions">
+        <button onclick="window.location.href='send.html'">Send Money</button>
+        <button onclick="window.location.href='request.html'">Request</button>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">💳</div>
+        Add Money
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🏦</div>
+        Bank Transfer
+      </div>
+      <div class="service-item">
+        <div class="service-icon">📱</div>
+        Mobile Load
+      </div>
+      <div class="service-item">
+        <div class="service-icon">💸</div>
+        Bills Pay
+      </div>
+    </div>
+
+    <div class="recent-section">
+      <div class="recent-title">
+        <span>Transaction History</span>
+        <span style="color:#6CBF41; font-size:0.8rem; cursor:pointer;">View All</span>
+      </div>
+      <div class="tx-item">
+        <div>No recent transactions</div>
+        <div>---</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="window.location.href='index.html'">
+      <span class="nav-icon material-icons">anchor</span>
+      Panyero
+    </div>
+    <div class="nav-item active" onclick="window.location.href='wallet.html'">
+      <span class="nav-icon material-icons">account_balance_wallet</span>
+      Wallet
+    </div>
+    <div class="nav-item" onclick="window.location.href='scanqr.html'">
+      <span class="nav-icon material-icons">qr_code_scanner</span>
+      Scan
+    </div>
+    <div class="nav-item" onclick="window.location.href='services.html'">
+      <span class="nav-icon material-icons">dns</span>
+      Services
+    </div>
+    <div class="nav-item" onclick="window.location.href='profile.html'">
+      <span class="nav-icon material-icons">person</span>
+      Profile
+    </div>
+  </div>
+</body>
+</html>

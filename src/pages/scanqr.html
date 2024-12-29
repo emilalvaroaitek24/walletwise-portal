@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panyero Wallet - Scan QR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    .qr-container {
+      background: #FFF;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 300px;
+    }
+    .qr-placeholder {
+      width: 200px;
+      height: 200px;
+      margin: 1rem auto;
+      background: #F5F5F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Firebase and Supabase configuration
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Supabase
+    const supabaseUrl = 'YOUR_SUPABASE_URL';
+    const supabaseKey = 'YOUR_SUPABASE_KEY';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
+
+  <header>
+    <div class="left-header">
+      <div class="panyero-logo"></div>
+    </div>
+    <div class="right-header">
+      <span class="material-icons" onclick="window.location.href='notifications.html'">notifications</span>
+      <span class="material-icons" onclick="window.location.href='niyero.html'">support_agent</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="qr-container">
+      <h2>Scan QR Code</h2>
+      <div class="qr-placeholder">
+        <span class="material-icons" style="font-size: 48px; color: #777;">qr_code_scanner</span>
+      </div>
+      <p style="color: #666; margin-top: 1rem;">Position the QR code within the frame to scan</p>
+    </div>
+
+    <div class="quick-actions" style="padding: 0 1rem;">
+      <button onclick="window.location.href='myqr.html'">My QR Code</button>
+      <button onclick="window.location.href='gallery.html'">Upload from Gallery</button>
+    </div>
+  </main>
+
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="window.location.href='index.html'">
+      <span class="nav-icon material-icons">anchor</span>
+      Panyero
+    </div>
+    <div class="nav-item" onclick="window.location.href='wallet.html'">
+      <span class="nav-icon material-icons">account_balance_wallet</span>
+      Wallet
+    </div>
+    <div class="nav-item active" onclick="window.location.href='scanqr.html'">
+      <span class="nav-icon material-icons">qr_code_scanner</span>
+      Scan
+    </div>
+    <div class="nav-item" onclick="window.location.href='services.html'">
+      <span class="nav-icon material-icons">dns</span>
+      Services
+    </div>
+    <div class="nav-item" onclick="window.location.href='profile.html'">
+      <span class="nav-icon material-icons">person</span>
+      Profile
+    </div>
+  </div>
+</body>
+</html>
